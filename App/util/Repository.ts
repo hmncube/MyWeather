@@ -28,7 +28,7 @@ const checkIfDataIsStillValid = jsonData => {
     return false;
   }
   const data = JSON.parse(jsonData);
-  const hoursDiff = hoursTimeDiff(data.list[0].dt_txt);
+  const hoursDiff = hoursTimeDiff(data.list[1].dt_txt);
   console.log(hoursDiff);
   return hoursDiff > 0;
 };
@@ -39,6 +39,7 @@ function hoursTimeDiff(forecast: string) {
   return (forecastDate - new Date()) / msInHour;
 }
 const getTwoDecimalPlaces = (value: string) => {
+  //convert to number and round down to 2 decimal places
   const decimalPlace = value.indexOf('.');
   const length = value.length;
   const afterDecimal = length - decimalPlace;
