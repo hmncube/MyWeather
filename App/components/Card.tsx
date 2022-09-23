@@ -1,21 +1,10 @@
 import React from 'react';
 import {Pressable, StyleSheet, Text, View, Image} from 'react-native';
-import colors from '../constants/colors';
+import darkTheme from '../constants/darkTheme';
 
-const Card: React.FC<Props> = ({
-  name,
-  imageUrl,
-  value,
-  isDarkMode,
-  navigateTo,
-}) => {
+const Card: React.FC<Props> = ({name, imageUrl, value, isDarkMode}) => {
   return (
-    <Pressable
-      style={styles(isDarkMode).container}
-      onPress={() => {
-        console.log('clicked');
-        navigateTo();
-      }}>
+    <Pressable style={styles(isDarkMode).container} onPress={() => {}}>
       <View>
         <View style={styles(isDarkMode).topRow}>
           <Image style={styles(isDarkMode).smallImage} source={imageUrl} />
@@ -33,13 +22,13 @@ const styles = isDarkMode =>
       flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: isDarkMode ? colors.gray : colors.blue,
+      backgroundColor: isDarkMode ? darkTheme.surface : darkTheme.surface,
       margin: 16,
       elevation: 10,
       borderWidth: 1,
       borderRadius: 8,
-      borderColor: isDarkMode ? colors.gray : colors.blue,
-      shadowColor: isDarkMode ? colors.gray : colors.blue,
+      borderColor: isDarkMode ? darkTheme.surface : darkTheme.surface,
+      shadowColor: isDarkMode ? darkTheme.surface : darkTheme.surface,
       shadowOpacity: 0.8,
       shadowRadius: 2,
       shadowOffset: {
