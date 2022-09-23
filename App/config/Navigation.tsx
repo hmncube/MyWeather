@@ -4,6 +4,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import Weather from '../screens/Weather';
 import Forecast from '../screens/Forecast';
+import darkTheme from '../constants/darkTheme';
 
 const Stack = createNativeStackNavigator();
 // const MainStackScreen = () => {
@@ -32,7 +33,16 @@ const Navigation = () => {
         <Stack.Screen
           name="Forecast"
           component={Forecast}
-          options={{title: 'Forecast'}}
+          options={{
+            title: 'Forecast',
+            headerStyle: {
+              backgroundColor: darkTheme.surface,
+            },
+            headerTintColor: darkTheme.onSurface,
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -11,23 +11,17 @@ import {
 } from 'react-native';
 import Card from '../components/Card';
 import {WeatherContext} from '../util/WeatherContext';
+import Button from '../components/Button';
+import darkTheme from '../constants/darkTheme';
 
 const Weather = ({navigation}) => {
-  console.log('in weather');
   const {weatherData, isLoading} = useContext(WeatherContext);
   const isDarkMode = true;
-  //const isLoading = true;
-
-  const backgroundStyle = {
-    backgroundColor: 'blue',
-    flex: 1,
-  };
   return (
-    <SafeAreaView style={backgroundStyle}>
-      {/* <Text> Test </Text> */}
+    <SafeAreaView style={styles.backgroundStyle}>
       <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
+        barStyle={'light-content'}
+        backgroundColor={darkTheme.background}
       />
       {isLoading ? (
         <View style={styles.loading}>
@@ -39,8 +33,8 @@ const Weather = ({navigation}) => {
           source={require('../assets/images/cloud.png')}
           resizeMode="cover"
           style={styles.imageBackground}>
-          <Text style={styles.city}>{weatherData.city.name}</Text>
-          <Text style={styles.temp}>
+          <Text style={styles.cityNameText}>{weatherData.city.name}</Text>
+          <Text style={styles.descriptionText}>
             {weatherData.list[0].weather[0].description}
           </Text>
           <ScrollView>
@@ -50,7 +44,6 @@ const Weather = ({navigation}) => {
                 value={Math.round(weatherData.list[0].main.temp) + '°'}
                 imageUrl={require('../assets/images/temp.png')}
                 isDarkMode={isDarkMode}
-                navigateTo={() => navigation.navigate('Forecast')}
               />
               <Card
                 name={'Sunrise'}
@@ -89,6 +82,10 @@ const Weather = ({navigation}) => {
               />
             </View>
           </ScrollView>
+          <Button
+            onPress={() => navigation.navigate('Forecast')}
+            title="FORECAST"
+          />
         </ImageBackground>
       )}
     </SafeAreaView>
@@ -96,17 +93,20 @@ const Weather = ({navigation}) => {
 };
 
 const styles = StyleSheet.create({
+  backgroundStyle: {
+    flex: 1,
+  },
   cardRow: {
     flex: 1,
     flexDirection: 'row',
   },
-  city: {
+  cityNameText: {
     fontSize: 32,
     fontWeight: 'bold',
     marginTop: 10,
     textAlign: 'center',
   },
-  temp: {
+  descriptionText: {
     fontSize: 16,
     fontWeight: 'bold',
     marginTop: 10,
