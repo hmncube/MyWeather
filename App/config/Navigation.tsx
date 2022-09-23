@@ -7,19 +7,17 @@ import Forecast from '../screens/Forecast';
 import darkTheme from '../constants/darkTheme';
 
 const Stack = createNativeStackNavigator();
-// const MainStackScreen = () => {
-//   <Stack.Navigator>
-//     <MainStack.Screen name="Weather" component={Weather} />
-//     <MainStack.Screen name="Forecast" component={Forecast} />
-//   </Stack.Navigator>;
-// };
-
-// export default () => {
-//   <NavigationContainer>
-//     <MainStackScreen />
-//   </NavigationContainer>;
-// };
-
+const config = {
+  animation: 'spring',
+  config: {
+    stiffness: 1000,
+    damping: 500,
+    mass: 3,
+    overshootClamping: true,
+    restDisplacementThreshold: 0.01,
+    restSpeedThreshold: 0.01,
+  },
+};
 const Navigation = () => {
   console.log('in Navigation');
   return (
@@ -28,7 +26,13 @@ const Navigation = () => {
         <Stack.Screen
           name="Weather"
           component={Weather}
-          options={{headerShown: false}}
+          options={{
+            headerShown: false,
+            transitionSpec: {
+              open: config,
+              close: config,
+            },
+          }}
         />
         <Stack.Screen
           name="Forecast"
@@ -41,6 +45,10 @@ const Navigation = () => {
             headerTintColor: darkTheme.onSurface,
             headerTitleStyle: {
               fontWeight: 'bold',
+            },
+            transitionSpec: {
+              open: config,
+              close: config,
             },
           }}
         />
