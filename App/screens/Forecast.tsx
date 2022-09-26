@@ -11,6 +11,7 @@ import ForecastCard from '../components/ForecastCard';
 import darkTheme from '../constants/darkTheme';
 import {ForecastCardItem} from '../data/ForecastCardItem';
 import ConvertTime from '../util/ConvertTime';
+import {ErrorHandler} from '../util/ErrorHandler';
 
 const createData = data => {
   let hourForecast = [];
@@ -45,21 +46,23 @@ const Forecast = () => {
   const {weatherData} = useContext(WeatherContext);
   const forecasts = createData(weatherData);
   return (
-    <View style={styles.container}>
-      <StatusBar
-        barStyle={'light-content'}
-        backgroundColor={darkTheme.background}
-      />
-      <ImageBackground
-        source={require('../assets/images/cloud.png')}
-        resizeMode="cover"
-        style={styles.imageBackground}>
-        <FlatList
-          data={forecasts}
-          renderItem={({item}) => <ForecastCard forecastCardData={item} />}
+    <ErrorHandler>
+      <View style={styles.container}>
+        <StatusBar
+          barStyle={'light-content'}
+          backgroundColor={darkTheme.background}
         />
-      </ImageBackground>
-    </View>
+        <ImageBackground
+          source={require('../assets/images/cloud.png')}
+          resizeMode="cover"
+          style={styles.imageBackground}>
+          <FlatList
+            data={forecasts}
+            renderItem={({item}) => <ForecastCard forecastCardData={item} />}
+          />
+        </ImageBackground>
+      </View>
+    </ErrorHandler>
   );
 };
 
