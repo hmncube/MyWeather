@@ -5,18 +5,81 @@ import lightTheme from '../constants/lightTheme';
 import WeatherNow from '../components/WeatherNow';
 import Sunshine from '../components/Sunshine';
 import Button from '../components/Button';
+import GetHourTime from '../util/GetHourTime';
+import ConvertTime from '../util/ConvertTime';
+import TimeDifference from '../util/TimeDifference';
+import WeatherIcons from '../util/WeatherIcons';
 
-const WeatherDetails = ({isDarkMode, navigation}) => {
+const WeatherDetails = ({data, isDarkMode, navigation}) => {
+  const dayLength = TimeDifference(data.city.sunrise, data.city.sunset);
+  const sunrise = GetHourTime(ConvertTime(data.city.sunrise));
+  const sunset = GetHourTime(ConvertTime(data.city.sunset));
+  let isDay = true;
+  const hoursRemaining = () => {
+    const now = GetHourTime(new Date().toLocaleString());
+    const nowValues = getHourMinAndNotationFromDate(now);
+    const notation = nowValues.notation;
+    let hour = nowValues.hour;
+    const min = nowValues.min;
+
+    const sunsetValues = getHourMinAndNotationFromDate(sunset);
+    let sunsetHour = sunsetValues.hour;
+    let sunsetMin = sunsetValues.min;
+    let sunsetNotation = sunsetValues.notation;
+
+    const diff = TimeDiff(
+      min,
+      hour,
+      notation,
+      sunsetMin,
+      sunsetHour,
+      sunsetNotation,
+    );
+    return diff.leftHour + ' hrs ' + diff.leftMin + ' min';
+  };
+
+  const TimeDiff = (
+    beforeMin: number,
+    beforeHour: number,
+    notationBefore: string,
+    afterMin: number,
+    afterHour: number,
+    notaionAfter: string,
+  ) => {
+    if (notationBefore === 'PM') {
+      beforeHour = beforeHour + 12;
+    }
+    if (notaionAfter === 'PM') {
+      afterHour = afterHour + 12;
+    }
+    if (afterMin < beforeMin) {
+      afterMin = afterMin + 60;
+      beforeHour = beforeHour + 1;
+    }
+    const leftMin = afterMin - beforeMin;
+    const leftHour = afterHour - beforeHour;
+    return {leftHour, leftMin};
+  };
+
+  const getHourMinAndNotationFromDate = date => {
+    const dateArray = date.split(' ')[1].split(':');
+    const notation = date.split(' ')[2];
+    let hour = Number(dateArray[0]);
+    const min = Number(dateArray[1]);
+    console.log(hour);
+
+    return {notation, hour, min};
+  };
   return (
     <>
       <View style={styles(isDarkMode).iconContainer}>
         <Image
           style={styles(isDarkMode).weatherIcon}
-          source={require('../assets/images/hot.png')}
+          source={WeatherIcons(data.list[0].weather[0].icon)}
         />
         <View style={styles(isDarkMode).row}>
           <Text style={[styles(isDarkMode).text, styles(isDarkMode).nameText]}>
-            Domboshava
+            {data.city.name}
           </Text>
           <Image
             style={styles(isDarkMode).locationIcon}
@@ -25,19 +88,20 @@ const WeatherDetails = ({isDarkMode, navigation}) => {
         </View>
         <Text
           style={[styles(isDarkMode).text, styles(isDarkMode).temparatueText]}>
-          20°
+          {Math.round(data.list[0].main.temp) + '°'}
         </Text>
         <WeatherNow
-          time={'12:00 PM'}
-          pressure={'100'}
-          humidity={'32'}
+          description={data.list[0].weather[0].description.toUpperCase()}
+          pressure={data.list[0].main.pressure}
+          humidity={data.list[0].main.humidity + '%'}
           isDarkMode={isDarkMode}
         />
         <Sunshine
-          sunrise={'6:30AM'}
-          sunset={'6:30PM'}
-          length={'16h'}
-          remaining={'13h'}
+          sunrise={sunrise}
+          sunset={sunset}
+          length={dayLength + ' Hours'}
+          remaining={hoursRemaining()}
+          isDay={isDay}
           isDarkMode={isDarkMode}
         />
       </View>

@@ -1,6 +1,6 @@
-const ConvertTime = (time: number, timezone: number) => {
-  const date = new Date((time + timezone) * 1000);
+const ConvertTime = (time: number) => {
+  const date = new Date(time * 1000);
+  console.log(date);
   return date.toLocaleString();
 };
-
 export default ConvertTime;

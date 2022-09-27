@@ -1,18 +1,18 @@
 import React from 'react';
-import {Text, View, StyleSheet, FlatList} from 'react-native';
+import {Text, View, StyleSheet} from 'react-native';
 import Card from '../components/Card';
 import darkTheme from '../constants/darkTheme';
 import lightTheme from '../constants/lightTheme';
 
-const WeatherNow = ({time, pressure, humidity, isDarkMode}) => {
-  const view = createView(time, pressure, humidity, isDarkMode);
+const WeatherNow = ({description, pressure, humidity, isDarkMode}) => {
+  const view = createView(description, pressure, humidity, isDarkMode);
   return <Card view={view} isDarkMode={isDarkMode} />;
 };
 
-const createView = (time, pressure, humidity, isDarkMode) => {
+const createView = (description, pressure, humidity, isDarkMode) => {
   return (
     <View style={styles(isDarkMode).row}>
-      {createRowView('TIME', time, isDarkMode)}
+      {createRowView('DESCRIPTION', description, isDarkMode)}
       {createRowView('PRESSURE', pressure, isDarkMode)}
       {createRowView('HUMIDITY', humidity, isDarkMode)}
     </View>

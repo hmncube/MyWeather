@@ -15,7 +15,7 @@ const createView = (sunrise, sunset, length, remaining, isDarkMode) => {
       {createColumnView('SUNRISE', sunrise, isDarkMode)}
       {createColumnView('SUNSET', sunset, isDarkMode)}
       {createColumnView('LENGTH OF DAY', length, isDarkMode)}
-      {createColumnView('REMAINING DAYLIGHT', length, isDarkMode)}
+      {createColumnView('REMAINING DAYLIGHT', remaining, isDarkMode)}
     </View>
   );
 };

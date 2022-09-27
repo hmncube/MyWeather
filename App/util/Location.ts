@@ -1,19 +1,21 @@
 import Geolocation from '@react-native-community/geolocation';
 import {Cood} from '../data/Cood';
+import {ApiResponse} from '../data/ApiResponse';
 
-export const Location = () => {
+export const Location = async onSuccess => {
   console.log('Location');
-  Geolocation.getCurrentPosition(
+  await Geolocation.getCurrentPosition(
     pos => {
       console.log(pos);
-
-      //const position = JSON.stringify(pos);
       const cood = new Cood(pos.coords.latitude, pos.coords.longitude);
       console.log('position');
       console.log(cood);
-      return cood;
+      onSuccess(cood);
+      return new ApiResponse(true, null, cood);
     },
-    error => Alert.alert('GetCurrentPosition Error', JSON.stringify(error)),
+    error => {
+      return new ApiResponse(false, JSON.stringify(error), null);
+    },
     {enableHighAccuracy: true},
   );
 };

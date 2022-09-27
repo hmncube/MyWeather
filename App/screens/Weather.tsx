@@ -1,15 +1,15 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {SafeAreaView, StatusBar, StyleSheet} from 'react-native';
 import darkTheme from '../constants/darkTheme';
 import lightTheme from '../constants/lightTheme';
 import Loading from '../components/Loading';
 import Error from '../components/Error';
 import WeatherDetails from '../components/WeatherDetails';
+import {WeatherContext} from '../util/WeatherContext';
 
 const Weather = ({navigation}) => {
   const isDarkMode = true;
-  const isLoading = false;
-  const isError = false;
+  const {weatherData, isLoading, apiError} = useContext(WeatherContext);
   return (
     <SafeAreaView style={styles(isDarkMode).backgroundStyle}>
       <StatusBar
@@ -20,10 +20,14 @@ const Weather = ({navigation}) => {
       />
       {isLoading ? (
         <Loading isDarkMode={isDarkMode} />
-      ) : isError ? (
+      ) : apiError.isError ? (
         <Error msg={'error'} isDarkMode={isDarkMode} navigation={navigation} />
       ) : (
-        <WeatherDetails isDarkMode={isDarkMode} navigation={navigation} />
+        <WeatherDetails
+          data={weatherData}
+          isDarkMode={isDarkMode}
+          navigation={navigation}
+        />
       )}
     </SafeAreaView>
   );

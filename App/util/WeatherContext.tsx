@@ -1,5 +1,4 @@
 import React, {createContext, useState, useEffect} from 'react';
-import {Alert} from 'react-native';
 import {Cood} from '../data/Cood';
 import {WeatherData} from '../data/WeatherData';
 import {getWeatherData} from '../util/Repository';
@@ -45,7 +44,7 @@ export const WeatherContextProvider = ({children}) => {
 
   const getWeather = async (coordinates: Cood) => {
     const res = await getWeatherData(coordinates);
-    //await console.log(res);
+    console.log('in getWeather');
     if (res == null) {
       const locError = new Error(
         true,
