@@ -1,0 +1,15 @@
+export default {
+  primary: '#6200EE',
+  primaryVariant: '#3700B3',
+  secondary: '#03DAC6',
+  background: '#FFFFFF',
+  surface: '#FDFCFC',
+  error: '#B00020',
+  onPrimary: '#FFFFFF',
+  onSecondary: '#000000',
+  onBackground: '#000000',
+  onSurface: '#000000',
+  onError: '#FFFFFF',
+  gray77: '#C4C4C4',
+  darkGray: '#9A9A9A',
+};

@@ -1,11 +1,5 @@
 import React, {useContext} from 'react';
-import {
-  View,
-  StatusBar,
-  StyleSheet,
-  ImageBackground,
-  FlatList,
-} from 'react-native';
+import {View, StatusBar, StyleSheet, FlatList} from 'react-native';
 import {WeatherContext} from '../util/WeatherContext';
 import ForecastCard from '../components/ForecastCard';
 import darkTheme from '../constants/darkTheme';
@@ -42,38 +36,38 @@ const createData = data => {
   return allForecasts;
 };
 
-const Forecast = () => {
+const Forecast = isDarkMode => {
   const {weatherData} = useContext(WeatherContext);
   const forecasts = createData(weatherData);
   return (
     <ErrorHandler>
-      <View style={styles.container}>
+      <View style={styles(isDarkMode).container}>
         <StatusBar
-          barStyle={'light-content'}
-          backgroundColor={darkTheme.background}
+          barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+          backgroundColor={
+            isDarkMode ? darkTheme.background : lightTheme.background
+          }
         />
-        <ImageBackground
-          source={require('../assets/images/cloud.png')}
-          resizeMode="cover"
-          style={styles.imageBackground}>
-          <FlatList
-            data={forecasts}
-            renderItem={({item}) => <ForecastCard forecastCardData={item} />}
-          />
-        </ImageBackground>
+        <FlatList
+          data={forecasts}
+          renderItem={({item}) => <ForecastCard forecastCardData={item} />}
+        />
       </View>
     </ErrorHandler>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    //backgroundColor: darkTheme.background,
-  },
-  imageBackground: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-});
+const styles = isDarkMode =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: isDarkMode
+        ? darkTheme.background
+        : lightTheme.background,
+    },
+    imageBackground: {
+      flex: 1,
+      justifyContent: 'center',
+    },
+  });
 export default Forecast;
