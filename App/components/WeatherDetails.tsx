@@ -15,6 +15,7 @@ const WeatherDetails = ({data, isDarkMode, navigation}) => {
   const sunrise = GetHourTime(ConvertTime(data.city.sunrise));
   const sunset = GetHourTime(ConvertTime(data.city.sunset));
   let isDay = true;
+
   const hoursRemaining = () => {
     const now = GetHourTime(new Date().toLocaleString());
     const nowValues = getHourMinAndNotationFromDate(now);
@@ -35,7 +36,7 @@ const WeatherDetails = ({data, isDarkMode, navigation}) => {
       sunsetHour,
       sunsetNotation,
     );
-    return diff.leftHour + ' hrs ' + diff.leftMin + ' min';
+    return diff.leftHour + ' Hrs ' + diff.leftMin + ' min';
   };
 
   const TimeDiff = (
@@ -68,6 +69,7 @@ const WeatherDetails = ({data, isDarkMode, navigation}) => {
     const min = Number(dateArray[1]);
     return {notation, hour, min};
   };
+
   return (
     <>
       <View style={styles(isDarkMode).container}>
@@ -90,14 +92,14 @@ const WeatherDetails = ({data, isDarkMode, navigation}) => {
         </Text>
         <WeatherNow
           description={data.list[0].weather[0].description.toUpperCase()}
-          pressure={data.list[0].main.pressure}
+          pressure={data.list[0].main.pressure + ' hPa'}
           humidity={data.list[0].main.humidity + '%'}
           isDarkMode={isDarkMode}
         />
         <Sunshine
           sunrise={sunrise}
           sunset={sunset}
-          length={dayLength + ' Hours'}
+          length={dayLength}
           remaining={hoursRemaining()}
           isDay={isDay}
           isDarkMode={isDarkMode}

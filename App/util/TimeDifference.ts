@@ -1,8 +1,8 @@
 const TimeDifference = (before: number, later: number) => {
-  const diff = later - before;
-  console.log(diff);
+  let diff = later - before;
   const hours = diff / 3600;
-  console.log(hours);
-  return Math.round(hours);
+  diff = diff - Math.round(hours) * 3600;
+  const min = ((diff % 3600) / 3600) * 60;
+  return Math.round(hours) + ' Hrs ' + Math.round(min) + ' min';
 };
 export default TimeDifference;

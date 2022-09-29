@@ -17,17 +17,17 @@ const createData = data => {
       new ForecastCardItem(
         require('../assets/images/temp.png'),
         'Temperature',
-        Math.round(w.main.temp),
+        Math.round(w.main.temp) + ' °',
       ),
       new ForecastCardItem(
         require('../assets/images/pressure.png'),
         'Pressure',
-        w.main.pressure,
+        w.main.pressure + ' hPa',
       ),
       new ForecastCardItem(
         require('../assets/images/humidity.png'),
         'humidity',
-        w.main.humidity,
+        w.main.humidity + ' %',
       ),
     );
     allForecasts.push(hourForecast);
