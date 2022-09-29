@@ -21,7 +21,7 @@ const Weather = ({navigation}) => {
         }
       />
       {isLoading ? (
-        <Loading isDarkMode={isDarkMode} />
+        <Loading />
       ) : apiError.isError ? (
         <Error msg={apiError.msg} isDarkMode={isDarkMode} />
       ) : (

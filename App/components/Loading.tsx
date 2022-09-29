@@ -1,17 +1,16 @@
 import React, {useEffect, useRef} from 'react';
 import {StyleSheet, View} from 'react-native';
 import darkTheme from '../constants/darkTheme';
-import lightTheme from '../constants/lightTheme';
 import Lottie from 'lottie-react-native';
 
-const Loading = ({isDarkMode}) => {
+const Loading = () => {
   const animationRef = useRef<Lottie>(null);
   useEffect(() => {
     animationRef.current?.play();
   }, []);
 
   return (
-    <View style={styles(isDarkMode).container}>
+    <View style={styles.container}>
       <Lottie
         ref={animationRef}
         source={require('../assets/animation/weather.json')}
@@ -20,16 +19,13 @@ const Loading = ({isDarkMode}) => {
   );
 };
 
-const styles = isDarkMode =>
-  StyleSheet.create({
-    container: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: isDarkMode
-        ? darkTheme.background
-        : lightTheme.background,
-    },
-  });
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: darkTheme.secondary,
+  },
+});
 
 export default Loading;
