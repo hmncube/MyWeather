@@ -1,4 +1,5 @@
 import React, {createContext, useState, useEffect} from 'react';
+import {useColorScheme} from 'react-native';
 import {Cood} from '../data/Cood';
 import {WeatherData} from '../data/WeatherData';
 import {getWeatherData} from '../util/Repository';
@@ -11,6 +12,7 @@ export const WeatherContextProvider = ({children}) => {
   const [weatherData, setWeatherData] = useState<WeatherData>({});
   const [isLoading, setIsLoading] = useState<Boolean>(true);
   const [apiError, setApiError] = useState<Error>(new Error(false, ''));
+  let isDarkMode = useColorScheme() === 'dark';
 
   useEffect(() => {
     getCood();
@@ -20,7 +22,12 @@ export const WeatherContextProvider = ({children}) => {
     weatherData,
     isLoading,
     apiError,
+    isDarkMode,
   };
+  const toggleMode = () => {
+    isDarkMode = !isDarkMode;
+  };
+
   const getCood = async () => {
     Geolocation.getCurrentPosition(
       pos => {

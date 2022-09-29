@@ -9,8 +9,9 @@ import {WeatherContext} from '../util/WeatherContext';
 import {ErrorHandler} from '../util/ErrorHandler';
 
 const Weather = ({navigation}) => {
-  const isDarkMode = true;
-  const {weatherData, isLoading, apiError} = useContext(WeatherContext);
+  const {weatherData, isLoading, apiError, isDarkMode} =
+    useContext(WeatherContext);
+
   return (
     <SafeAreaView style={styles(isDarkMode).backgroundStyle}>
       <StatusBar
@@ -21,18 +22,15 @@ const Weather = ({navigation}) => {
       />
       {isLoading ? (
         <Loading isDarkMode={isDarkMode} />
-      ) : !apiError.isError ? (
-        <Error
-          msg={apiError.msg}
-          isDarkMode={isDarkMode}
-        />
+      ) : apiError.isError ? (
+        <Error msg={apiError.msg} isDarkMode={isDarkMode} />
       ) : (
         <ErrorHandler>
-        <WeatherDetails
-          data={weatherData}
-          isDarkMode={isDarkMode}
-          navigation={navigation}
-        />
+          <WeatherDetails
+            data={weatherData}
+            isDarkMode={isDarkMode}
+            navigation={navigation}
+          />
         </ErrorHandler>
       )}
     </SafeAreaView>
