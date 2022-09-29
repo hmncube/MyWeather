@@ -9,6 +9,7 @@ import GetHourTime from '../util/GetHourTime';
 import ConvertTime from '../util/ConvertTime';
 import TimeDifference from '../util/TimeDifference';
 import WeatherIcons from '../util/WeatherIcons';
+import {ErrorHandler} from '../util/ErrorHandler';
 
 const WeatherDetails = ({data, isDarkMode, navigation}) => {
   const dayLength = TimeDifference(data.city.sunrise, data.city.sunset);
@@ -106,11 +107,13 @@ const WeatherDetails = ({data, isDarkMode, navigation}) => {
         />
       </View>
 
-      <Button
-        onPress={() => navigation.navigate('Forecast')}
-        title={'3 HOUR FORECAST'}
-        isDarkMode={isDarkMode}
-      />
+      <View style={styles(isDarkMode).buttonContainer}>
+        <Button
+          onPress={() => navigation.navigate('Forecast')}
+          title={'3 HOUR FORECAST'}
+          isDarkMode={isDarkMode}
+        />
+      </View>
     </>
   );
 };
@@ -154,6 +157,9 @@ const styles = isDarkMode =>
       alignSelf: 'stretch',
       justifyContent: 'center',
       alignItems: 'center',
+    },
+    buttonContainer: {
+      
     },
   });
 

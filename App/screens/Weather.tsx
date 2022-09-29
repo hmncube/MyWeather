@@ -6,6 +6,7 @@ import Loading from '../components/Loading';
 import Error from '../components/Error';
 import WeatherDetails from '../components/WeatherDetails';
 import {WeatherContext} from '../util/WeatherContext';
+import {ErrorHandler} from '../util/ErrorHandler';
 
 const Weather = ({navigation}) => {
   const isDarkMode = true;
@@ -20,14 +21,19 @@ const Weather = ({navigation}) => {
       />
       {isLoading ? (
         <Loading isDarkMode={isDarkMode} />
-      ) : apiError.isError ? (
-        <Error msg={'error'} isDarkMode={isDarkMode} navigation={navigation} />
+      ) : !apiError.isError ? (
+        <Error
+          msg={apiError.msg}
+          isDarkMode={isDarkMode}
+        />
       ) : (
+        <ErrorHandler>
         <WeatherDetails
           data={weatherData}
           isDarkMode={isDarkMode}
           navigation={navigation}
         />
+        </ErrorHandler>
       )}
     </SafeAreaView>
   );

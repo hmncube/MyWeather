@@ -3,8 +3,9 @@ import {View, StyleSheet, Text} from 'react-native';
 import darkTheme from '../constants/darkTheme';
 import lightTheme from '../constants/lightTheme';
 import Button from './Button';
+import RNRestart from 'react-native-restart';
 
-const Error = ({msg, isDarkMode, navigation}) => {
+const Error = ({msg, isDarkMode}) => {
   return (
     <View style={styles(isDarkMode).container}>
       <View style={styles(isDarkMode).errorContainer}>
@@ -18,7 +19,7 @@ const Error = ({msg, isDarkMode, navigation}) => {
           "{msg}"
         </Text>
         <Button
-          onPress={() => navigation.navigate('Forecast')}
+          onPress={() => RNRestart.Restart()}
           title={"Let's start over"}
           isDarkMode={isDarkMode}
         />
@@ -48,6 +49,7 @@ const styles = isDarkMode =>
     },
     text: {
       color: isDarkMode ? darkTheme.onError : lightTheme.onError,
+      textAlign: 'center',
     },
     textTitle: {
       fontWeight: 'bold',
