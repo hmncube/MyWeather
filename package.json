@@ -20,6 +20,7 @@
     "react-error-boundary": "^3.1.4",
     "react-native": "0.70.1",
     "react-native-animated-loader": "^1.0.0",
+    "react-native-appearance": "^0.3.4",
     "react-native-dotenv": "^3.3.1",
     "react-native-exception-handler": "^2.10.10",
     "react-native-gesture-handler": "^2.6.1",
