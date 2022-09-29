@@ -9,7 +9,6 @@ import GetHourTime from '../util/GetHourTime';
 import ConvertTime from '../util/ConvertTime';
 import TimeDifference from '../util/TimeDifference';
 import WeatherIcons from '../util/WeatherIcons';
-import {ErrorHandler} from '../util/ErrorHandler';
 
 const WeatherDetails = ({data, isDarkMode, navigation}) => {
   const dayLength = TimeDifference(data.city.sunrise, data.city.sunset);
@@ -67,13 +66,11 @@ const WeatherDetails = ({data, isDarkMode, navigation}) => {
     const notation = date.split(' ')[2];
     let hour = Number(dateArray[0]);
     const min = Number(dateArray[1]);
-    console.log(hour);
-
     return {notation, hour, min};
   };
   return (
     <>
-      <View style={styles(isDarkMode).iconContainer}>
+      <View style={styles(isDarkMode).container}>
         <Image
           style={styles(isDarkMode).weatherIcon}
           source={WeatherIcons(data.list[0].weather[0].icon)}
@@ -126,7 +123,7 @@ const styles = isDarkMode =>
         : lightTheme.background,
       flex: 1,
     },
-    iconContainer: {
+    container: {
       justifyContent: 'center',
       alignItems: 'center',
     },
@@ -159,7 +156,8 @@ const styles = isDarkMode =>
       alignItems: 'center',
     },
     buttonContainer: {
-      
+      flex: 1,
+      justifyContent: 'flex-end',
     },
   });
 
