@@ -9,67 +9,15 @@ import GetHourTime from '../util/GetHourTime';
 import ConvertTime from '../util/ConvertTime';
 import TimeDifference from '../util/TimeDifference';
 import WeatherIcons from '../util/WeatherIcons';
+import HoursRemaining from '../time/HoursRemaining';
 
 const WeatherDetails = ({data, isDarkMode, navigation}) => {
   const dayLength = TimeDifference(data.city.sunrise, data.city.sunset);
   const sunrise = GetHourTime(ConvertTime(data.city.sunrise));
   const sunset = GetHourTime(ConvertTime(data.city.sunset));
   let isDay = true;
-
-  const hoursRemaining = () => {
-    const now = GetHourTime(new Date().toLocaleString());
-    const nowValues = getHourMinAndNotationFromDate(now);
-    const notation = nowValues.notation;
-    let hour = nowValues.hour;
-    const min = nowValues.min;
-
-    const sunsetValues = getHourMinAndNotationFromDate(sunset);
-    let sunsetHour = sunsetValues.hour;
-    let sunsetMin = sunsetValues.min;
-    let sunsetNotation = sunsetValues.notation;
-
-    const diff = TimeDiff(
-      min,
-      hour,
-      notation,
-      sunsetMin,
-      sunsetHour,
-      sunsetNotation,
-    );
-    return diff.leftHour + ' Hrs ' + diff.leftMin + ' min';
-  };
-
-  const TimeDiff = (
-    beforeMin: number,
-    beforeHour: number,
-    notationBefore: string,
-    afterMin: number,
-    afterHour: number,
-    notaionAfter: string,
-  ) => {
-    if (notationBefore === 'PM') {
-      beforeHour = beforeHour + 12;
-    }
-    if (notaionAfter === 'PM') {
-      afterHour = afterHour + 12;
-    }
-    if (afterMin < beforeMin) {
-      afterMin = afterMin + 60;
-      beforeHour = beforeHour + 1;
-    }
-    const leftMin = afterMin - beforeMin;
-    const leftHour = afterHour - beforeHour;
-    return {leftHour, leftMin};
-  };
-
-  const getHourMinAndNotationFromDate = date => {
-    const dateArray = date.split(' ')[1].split(':');
-    const notation = date.split(' ')[2];
-    let hour = Number(dateArray[0]);
-    const min = Number(dateArray[1]);
-    return {notation, hour, min};
-  };
-
+  const now = GetHourTime(new Date().toLocaleString());
+  const remaining = HoursRemaining(now, sunset);
   return (
     <>
       <View style={styles(isDarkMode).container}>
@@ -100,7 +48,7 @@ const WeatherDetails = ({data, isDarkMode, navigation}) => {
           sunrise={sunrise}
           sunset={sunset}
           length={dayLength}
-          remaining={hoursRemaining()}
+          remaining={remaining}
           isDay={isDay}
           isDarkMode={isDarkMode}
         />
