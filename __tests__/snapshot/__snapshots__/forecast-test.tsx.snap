@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ForecastCardRow renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "flexDirection": "row",
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "flex": 1,
+        "margin": 4,
+      }
+    }
+  >
+    <Image
+      source={
+        Object {
+          "testUri": "../../../App/assets/images/hot.png",
+        }
+      }
+      style={
+        Object {
+          "height": 20,
+          "textAlign": "left",
+          "width": 20,
+        }
+      }
+    />
+  </View>
+  <View
+    style={
+      Object {
+        "flex": 10,
+        "flexDirection": "row",
+        "margin": 4,
+      }
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#FFFFFF",
+            "fontSize": 16,
+            "fontWeight": "bold",
+            "letterSpacing": 0.25,
+            "lineHeight": 21,
+          },
+          Object {
+            "flex": 1,
+            "textAlign": "left",
+          },
+        ]
+      }
+    >
+      Test
+    </Text>
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#FFFFFF",
+            "fontSize": 16,
+            "fontWeight": "bold",
+            "letterSpacing": 0.25,
+            "lineHeight": 21,
+          },
+          Object {
+            "marginEnd": 16,
+          },
+        ]
+      }
+    >
+      Value
+    </Text>
+  </View>
+</View>
+`;
