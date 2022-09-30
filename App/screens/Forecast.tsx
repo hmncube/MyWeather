@@ -4,7 +4,7 @@ import {WeatherContext} from '../util/WeatherContext';
 import ForecastCard from '../components/ForecastCard';
 import darkTheme from '../constants/darkTheme';
 import {ForecastCardItem} from '../data/ForecastCardItem';
-import ConvertTime from '../util/ConvertTime';
+import ConvertTime from '../time/ConvertTime';
 import {ErrorHandler} from '../util/ErrorHandler';
 
 const createData = data => {

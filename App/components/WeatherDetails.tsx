@@ -5,9 +5,9 @@ import lightTheme from '../constants/lightTheme';
 import WeatherNow from '../components/WeatherNow';
 import Sunshine from '../components/Sunshine';
 import Button from '../components/Button';
-import GetHourTime from '../util/GetHourTime';
-import ConvertTime from '../util/ConvertTime';
-import TimeDifference from '../util/TimeDifference';
+import GetHourTime from '../time/GetHourTime';
+import ConvertTime from '../time/ConvertTime';
+import TimeDifference from '../time/TimeDifference';
 import WeatherIcons from '../util/WeatherIcons';
 import HoursRemaining from '../time/HoursRemaining';
 

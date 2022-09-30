@@ -1,4 +1,4 @@
-import ConvertTime from '../../App/util/ConvertTime';
+import ConvertTime from '../../App/time/ConvertTime';
 
 describe('Tests for the Convert time function', () => {
   it('converts time correctly', () => {
