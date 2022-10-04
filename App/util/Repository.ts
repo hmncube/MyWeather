@@ -1,6 +1,20 @@
-import {getDbWeatherData, storeWeatherData} from './DataBase';
+import {
+  getDbWeatherData,
+  storeWeatherData,
+  getMode,
+  storeMode,
+} from './DataBase';
 import {Cood} from '../data/Cood';
 import {Api} from './Api';
+
+export const getAppearanceMode = async () => {
+  const mode = await getMode();
+  return mode != null ? JSON.parse(mode) : false;
+};
+
+export const storeAppearanceMode = async (mode: Boolean) => {
+  await storeMode(JSON.stringify(mode));
+};
 
 export const getWeatherData = async (cood: Cood) => {
   const lat = getTwoDecimalPlaces(String(cood.lat));
@@ -10,10 +24,8 @@ export const getWeatherData = async (cood: Cood) => {
     const weatherdata = await getDbWeatherData(coodKey);
     const isValid = checkIfDataIsStillValid(weatherdata);
     if (weatherdata == null || !isValid) {
-      console.log('NULL');
       const apiResp = await Api(lat, long);
       const data = await apiResp.json();
-      console.log(data);
       await storeWeatherData(coodKey, JSON.stringify(data));
     }
   } catch (error) {
@@ -29,7 +41,6 @@ const checkIfDataIsStillValid = jsonData => {
   }
   const data = JSON.parse(jsonData);
   const hoursDiff = hoursTimeDiff(data.list[1].dt_txt);
-  console.log(hoursDiff);
   return hoursDiff > 0;
 };
 

@@ -2,7 +2,11 @@ import React, {createContext, useState, useEffect} from 'react';
 import {useColorScheme} from 'react-native';
 import {Cood} from '../data/Cood';
 import {WeatherData} from '../data/WeatherData';
-import {getWeatherData} from '../util/Repository';
+import {
+  getWeatherData,
+  storeAppearanceMode,
+  getAppearanceMode,
+} from '../util/Repository';
 import Geolocation from '@react-native-community/geolocation';
 import {Error} from '../data/Error';
 
@@ -12,20 +16,30 @@ export const WeatherContextProvider = ({children}) => {
   const [weatherData, setWeatherData] = useState<WeatherData>({});
   const [isLoading, setIsLoading] = useState<Boolean>(true);
   const [apiError, setApiError] = useState<Error>(new Error(false, ''));
-  let isDarkMode = useColorScheme() === 'dark';
-
+  const [isDarkMode, setMode] = useState<Boolean>(useColorScheme() === 'dark');
   useEffect(() => {
+    getMode();
     getCood();
   }, []);
+
+  const getMode = async () => {
+    const mode = await getAppearanceMode();
+    console.log(typeof mode);
+    console.log(mode);
+    setMode(mode);
+  };
+
+  const setAppearanceMode = async mode => {
+    setMode(mode);
+    await storeAppearanceMode(mode);
+  };
 
   const contextValue = {
     weatherData,
     isLoading,
     apiError,
     isDarkMode,
-  };
-  const toggleMode = () => {
-    isDarkMode = !isDarkMode;
+    setAppearanceMode,
   };
 
   const getCood = async () => {
@@ -51,7 +65,6 @@ export const WeatherContextProvider = ({children}) => {
 
   const getWeather = async (coordinates: Cood) => {
     const res = await getWeatherData(coordinates);
-    console.log('in getWeather');
     if (res == null) {
       const locError = new Error(
         true,
