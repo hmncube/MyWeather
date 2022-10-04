@@ -39,7 +39,7 @@ function hoursTimeDiff(forecast: string) {
   return (forecastDate - new Date()) / msInHour;
 }
 const getTwoDecimalPlaces = (value: string) => {
-  //convert to number and round down to 2 decimal places
+  //OPTION convert to number and round down to 2 decimal places
   const decimalPlace = value.indexOf('.');
   const length = value.length;
   const afterDecimal = length - decimalPlace;

@@ -1,61 +1,21 @@
 import React from 'react';
-import {Pressable, StyleSheet, Text, View, Image} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import darkTheme from '../constants/darkTheme';
+import lightTheme from '../constants/lightTheme';
 
-const Card: React.FC<Props> = ({name, imageUrl, value, isDarkMode}) => {
-  return (
-    <Pressable style={styles(isDarkMode).container} onPress={() => {}}>
-      <View>
-        <View style={styles(isDarkMode).topRow}>
-          <Image style={styles(isDarkMode).smallImage} source={imageUrl} />
-          <Text style={styles(isDarkMode).elementText}>{name}</Text>
-        </View>
-        <Text style={styles(isDarkMode).elementValue}>{value}</Text>
-      </View>
-    </Pressable>
-  );
+const Card = ({view, isDarkMode}) => {
+  return <View style={styles(isDarkMode).container}>{view}</View>;
 };
 
 const styles = isDarkMode =>
   StyleSheet.create({
     container: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: isDarkMode ? darkTheme.surface : darkTheme.surface,
-      margin: 16,
-      elevation: 10,
-      borderWidth: 1,
-      borderRadius: 8,
-      borderColor: isDarkMode ? darkTheme.surface : darkTheme.surface,
-      shadowColor: isDarkMode ? darkTheme.surface : darkTheme.surface,
-      shadowOpacity: 0.8,
-      shadowRadius: 2,
-      shadowOffset: {
-        height: 1,
-        width: 1,
-      },
-    },
-    topRow: {
-      flex: 1,
-      flexDirection: 'row',
+      backgroundColor: isDarkMode ? darkTheme.surface : lightTheme.surface,
       margin: 8,
-      alignContent: 'space-around',
-      justifyContent: 'flex-start',
+      borderWidth: 1,
+      borderRadius: 11,
+      borderColor: isDarkMode ? darkTheme.surface : lightTheme.surface,
       alignSelf: 'stretch',
-    },
-    smallImage: {
-      height: 20,
-      width: 20,
-      textAlign: 'left',
-    },
-    elementText: {
-      marginLeft: 16,
-    },
-    elementValue: {
-      fontSize: 64,
-      fontWeight: 'bold',
-      textAlign: 'center',
     },
   });
 

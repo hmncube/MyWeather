@@ -1,20 +1,14 @@
 import * as React from 'react';
 import {ErrorBoundary} from 'react-error-boundary';
 import {View, StyleSheet, Button, Text} from 'react-native';
+import Error from '../components/Error';
 
 const myErrorHandler = (error: Error) => {
   console.error(error);
 };
 
 function ErrorFallback({resetErrorBoundary}) {
-  return (
-    <View style={styles.container}>
-      <View>
-        <Text> Something went wrong: </Text>
-        <Button title="try Again" onPress={resetErrorBoundary} />
-      </View>
-    </View>
-  );
+  return <Error msg={'Error with component'} isDarkMode={true} />;
 }
 
 export const ErrorHandler = ({children}: {children: React.ReactNode}) => (
