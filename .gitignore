@@ -65,3 +65,4 @@ buck-out/
 
 yarn.lock
 .env
+/android/app/gradle.properties
