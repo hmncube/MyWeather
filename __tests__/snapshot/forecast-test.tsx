@@ -6,7 +6,7 @@ it('ForecastCardRow renders correctly', () => {
   const tree = renderer
     .create(
       <ForecastCardRow
-        image={require('../../App/assets/images/hot.png')}
+        image={require('../../App/assets/images/temp.png')}
         title={'Test'}
         value={'Value'}
       />,

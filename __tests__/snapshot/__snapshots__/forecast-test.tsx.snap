@@ -19,7 +19,7 @@ exports[`ForecastCardRow renders correctly 1`] = `
     <Image
       source={
         Object {
-          "testUri": "../../../App/assets/images/hot.png",
+          "testUri": "../../../App/assets/images/temp.png",
         }
       }
       style={
