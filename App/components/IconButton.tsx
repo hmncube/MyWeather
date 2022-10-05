@@ -4,7 +4,7 @@ import darkTheme from '../constants/darkTheme';
 import lightTheme from '../constants/lightTheme';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const Button = ({onPress, iconName, isDarkMode}) => {
+const Button = ({onPress, iconName, mode}) => {
   return (
     <Pressable
       style={styles.button}
@@ -13,7 +13,7 @@ const Button = ({onPress, iconName, isDarkMode}) => {
       }}>
       <Ionicons
         name={iconName}
-        color={isDarkMode ? lightTheme.surface : darkTheme.surface}
+        color={mode ? lightTheme.surface : darkTheme.surface}
         size={24}
       />
     </Pressable>
